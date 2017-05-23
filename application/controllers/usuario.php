@@ -19,10 +19,35 @@ class usuario extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function index() {
+    public function index($indice = null) {
+
+        $this->db->select('*');
+        $dados['usuarios'] = $this->db->get('usuario')->result();
+
         $this->load->view('header');
         $this->load->view('menu');
-        $this->load->view('listar_usuario');
+        
+        if ($indice == 1) {
+            $data['msg'] = "Usuário cadastrado com sucesso.";
+            $this->load->view('includes/msg_sucesso', $data);
+        } else if ($indice == 2) {
+            $data['msg'] = "Não foi possivel cadastrar o Usúario.";
+            $this->load->view('includes/msg_erro', $data);
+        }if ($indice == 3) {
+            $data['msg'] = "Usuario excluido com sucesso.";
+            $this->load->view('includes/msg_sucesso', $data);
+        }else if ($indice == 4) {
+            $data['msg'] = "Não foi possivel excluir o Usúario.";
+            $this->load->view('includes/msg_erro', $data);
+        }if ($indice == 5) {
+            $data['msg'] = "Usuario atualizado com sucesso.";
+            $this->load->view('includes/msg_sucesso', $data);
+        }else if ($indice == 6) {
+            $data['msg'] = "Não foi possivel atualizar o Usúario.";
+            $this->load->view('includes/msg_erro', $data);
+        }
+
+        $this->load->view('listar_usuario',$dados);
         $this->load->view('footer');
     }
 
@@ -31,8 +56,9 @@ class usuario extends CI_Controller {
         $this->load->view('menu');
         $this->load->view('cadastro_usuario');
         $this->load->view('footer');
-        }
-        public function cadastrar() {
+    }
+    
+    public function cadastrar() {
 
         $data['nome'] = $this->input->post('nome');
         $data['cpf'] = $this->input->post('cpf');
@@ -40,12 +66,58 @@ class usuario extends CI_Controller {
         $data['senha'] = $this->input->post('senha');
         $data['status'] = $this->input->post('status');
         $data['nivel'] = $this->input->post('nivel');
-        
-        if($this->db->insert('usuario',$data)){
-            
-            redirect('usuario');
+
+        if ($this->db->insert('usuario', $data)) {
+
+            redirect('usuario/1');
+        } else {
+
+            redirect('usuario/2');
         }
+    }
+    
+    public function excluir($id=null){
         
+        $this->db->where('idUsuario',$id);
+         if ($this->db->delete('usuario')) {
+
+            redirect('usuario/3');
+        } else {
+
+            redirect('usuario/4');
+        }
+    }
+    
+    public function atualizar($id=null){
+        
+        $this->db->where('idUsuario',$id);
+        $data['usuario'] = $this->db->get('usuario')->result();
+        $this->load->view('header');
+        $this->load->view('menu');
+        $this->load->view('editar_usuario',$data);
+        $this->load->view('footer');
+    }
+    
+    public function salvar_atualizacao() {
+
+        
+        $id = $this->input->post('idUsuario');
+        
+        $data['nome'] = $this->input->post('nome');
+        $data['cpf'] = $this->input->post('cpf');
+        $data['email'] = $this->input->post('email');
+        $data['senha'] = $this->input->post('senha');
+        $data['status'] = $this->input->post('status');
+        $data['nivel'] = $this->input->post('nivel');
+
+        $this->db->where('idUsuario',$id);
+        if ($this->db->update('usuario', $data)) {
+
+            redirect('usuario/5');
+        } else {
+
+            redirect('usuario/6');
+        }
     }
 
 }

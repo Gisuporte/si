@@ -21,8 +21,8 @@ class dashboard extends CI_Controller {
      */
     public function index() {
         $this->load->view('header');
+        $this->load->view('lista_dashboard');
         $this->load->view('menu');
-
         $this->load->view('footer');
     }
 

@@ -14,7 +14,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="<?= base_url()?>dashboard">Dashboard</a></li>
             <li><a href="#">Configurações</a></li>
             <li><a href="<?= base_url()?>usuario">Usuário</a></li>
             <li><a href="#">Help</a></li>

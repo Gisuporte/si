@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-md-7">
                     <div class="form-group">
                         <label for="email">E-mail</label>
-                        <input class="form-control" id="endereco" name="email" placeholder="Informe o endereço email..." required="" type="email">
+                        <input class="form-control" id="email" name="email" placeholder="Informe o endereço email..." required="" type="email">
                     </div>
                 </div>
                 <div class="col-md-2">
