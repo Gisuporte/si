@@ -19,8 +19,16 @@ class usuario extends CI_Controller {
      * map to /index.php/welcome/<method_name>
      * @see https://codeigniter.com/user_guide/general/urls.html
      */
-    public function index($indice = null) {
+    public function verificar_sessao() {
 
+        if ($this->session->userdata('logado') == false) {
+
+            redirect('dashboard/login');
+        }
+    }
+
+    public function index($indice = null) {
+        $this->verificar_sessao();
         $this->db->select('*');
         $dados['usuarios'] = $this->db->get('usuario')->result();
 
@@ -52,13 +60,16 @@ class usuario extends CI_Controller {
     }
 
     public function cadastro() {
+        $this->verificar_sessao();
+        $dados['cargo'] = $this->db->get('cargos')->result();
         $this->load->view('header');
         $this->load->view('menu');
-        $this->load->view('cadastro_usuario');
+        $this->load->view('cadastro_usuario', $dados);
         $this->load->view('footer');
     }
 
     public function cadastrar() {
+        $this->verificar_sessao();
 
         $data['nome'] = $this->input->post('nome');
         $data['cpf'] = $this->input->post('cpf');
@@ -66,6 +77,7 @@ class usuario extends CI_Controller {
         $data['senha'] = md5($this->input->post('senha'));
         $data['status'] = $this->input->post('status');
         $data['nivel'] = $this->input->post('nivel');
+        $data['cargo_idCargo'] = $this->input->post('cargos');
 
         if ($this->db->insert('usuario', $data)) {
 
@@ -77,6 +89,7 @@ class usuario extends CI_Controller {
     }
 
     public function excluir($id = null) {
+        $this->verificar_sessao();
 
         $this->db->where('idUsuario', $id);
         if ($this->db->delete('usuario')) {
@@ -89,7 +102,7 @@ class usuario extends CI_Controller {
     }
 
     public function atualizar($id = null, $indice = null) {
-
+        $this->verificar_sessao();
         $this->db->where('idUsuario', $id);
         $data['usuario'] = $this->db->get('usuario')->result();
         $this->load->view('header');
@@ -106,7 +119,7 @@ class usuario extends CI_Controller {
     }
 
     public function salvar_atualizacao() {
-
+        $this->verificar_sessao();
 
         $id = $this->input->post('idUsuario');
 
@@ -128,6 +141,7 @@ class usuario extends CI_Controller {
     }
 
     public function salvar_senha() {
+        $this->verificar_sessao();
 
         $id = $this->input->post('idUsuario');
         $senha_antiga = md5($this->input->post('senha_antiga'));

@@ -15,7 +15,7 @@
             <li><a href="<?= base_url()?>dashboard">Dashboard</a></li>
             <li><a href="#">Configurações</a></li>
             <li><a href="<?= base_url()?>usuario">Usuário</a></li>
-            <li><a href="#">Help</a></li>
+            <li><a href="<?= base_url()?>dashboard/logout">Logout</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">

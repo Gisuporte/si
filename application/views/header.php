@@ -10,7 +10,7 @@
         <link rel="icon" href="../../favicon.ico">
 
         <title>Dashboard Gestão de Metas</title>
-
+        <link href="<?= base_url(); ?>assets/css/signin.css" rel="stylesheet">
         <!-- Bootstrap core CSS -->
         <link href="<?= base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,4 +30,4 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+ 

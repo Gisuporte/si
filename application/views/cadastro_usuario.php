@@ -54,6 +54,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     </select>
                 </div>
+                 <div class="col-md-2">
+                     <label for="cargos">Cargo: </label>
+                    <select id="cargos" class="form-control"  name="cargos" required>
+                        <option value="0"> --- </option>
+                        <?php foreach ($cargo as $cargos){?>
+                        <option value="<?= $cargos->idCargo?>"> <?= $cargos->desc_cargo; ?> </option>
+                        <?php } ?>
+                    </select>
+             </div>
             </div>
             <div style="text-align: right;">
                 <button class="btn btn-success" type="submit">Enviar</button>
