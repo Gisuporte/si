@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <th>E-mail</th>
                 <th>Status</th>
                 <th>Nivel</th>
+                <th>Cargo</th>
                  <th></th>
                  <th></th>
             </tr>
@@ -35,6 +36,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <td><?= $usu->email; ?> </td>
                 <td><?= $usu->status==1?'Ativo':'Inativo'; ?> </td>
                 <td><?= $usu->nivel==1?'Administrador':'Usuário'; ?> </td>
+                <td><?= $usu->desc_cargo; ?> </td>
                 <td><a href="<?= base_url('usuario/atualizar/'.$usu->idUsuario)?>" class="btn btn-primary btn-group">Atualizar</a></td>
                 <td><a href="<?= base_url('usuario/excluir/'.$usu->idUsuario)?>" class="btn btn-danger btn-group" onclick="return confirm('Deseja realmente excluir o usuário?');">Excuir</a></td>
                 

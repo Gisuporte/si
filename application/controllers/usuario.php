@@ -29,8 +29,8 @@ class usuario extends CI_Controller {
 
     public function index($indice = null) {
         $this->verificar_sessao();
-        $this->db->select('*');
-        $dados['usuarios'] = $this->db->get('usuario')->result();
+        $this->load->model('usuario_model','usuario');
+        $dados['usuarios'] = $this->usuario->get_usuarios();
 
         $this->load->view('header');
         $this->load->view('menu');
@@ -68,18 +68,11 @@ class usuario extends CI_Controller {
         $this->load->view('footer');
     }
 
-    public function cadastrar() {
+    public function cadastrar(){
         $this->verificar_sessao();
-
-        $data['nome'] = $this->input->post('nome');
-        $data['cpf'] = $this->input->post('cpf');
-        $data['email'] = $this->input->post('email');
-        $data['senha'] = md5($this->input->post('senha'));
-        $data['status'] = $this->input->post('status');
-        $data['nivel'] = $this->input->post('nivel');
-        $data['cargo_idCargo'] = $this->input->post('cargos');
-
-        if ($this->db->insert('usuario', $data)) {
+        $this->load->model('Usuario_model','usuario');
+            
+            if ($this->usuario->cadastrar()) {
 
             redirect('usuario/1');
         } else {
@@ -87,12 +80,14 @@ class usuario extends CI_Controller {
             redirect('usuario/2');
         }
     }
+        
+    
 
     public function excluir($id = null) {
         $this->verificar_sessao();
-
-        $this->db->where('idUsuario', $id);
-        if ($this->db->delete('usuario')) {
+        $this->load->model('Usuario_model','usuario');
+        
+        if ($this->usuario->excluir()) {
 
             redirect('usuario/3');
         } else {
@@ -103,6 +98,8 @@ class usuario extends CI_Controller {
 
     public function atualizar($id = null, $indice = null) {
         $this->verificar_sessao();
+        $data['cargo'] = $this->db->get('cargos')->result();
+        
         $this->db->where('idUsuario', $id);
         $data['usuario'] = $this->db->get('usuario')->result();
         $this->load->view('header');
@@ -121,17 +118,8 @@ class usuario extends CI_Controller {
     public function salvar_atualizacao() {
         $this->verificar_sessao();
 
-        $id = $this->input->post('idUsuario');
-
-        $data['nome'] = $this->input->post('nome');
-        $data['cpf'] = $this->input->post('cpf');
-        $data['email'] = $this->input->post('email');
-        $data['senha'] = $this->input->post('senha');
-        $data['status'] = $this->input->post('status');
-        $data['nivel'] = $this->input->post('nivel');
-
-        $this->db->where('idUsuario', $id);
-        if ($this->db->update('usuario', $data)) {
+         $this->load->model('Usuario_model','usuario');
+        if ($this->usuario->salvar_atualizacao()) {
 
             redirect('usuario/5');
         } else {
@@ -143,23 +131,16 @@ class usuario extends CI_Controller {
     public function salvar_senha() {
         $this->verificar_sessao();
 
-        $id = $this->input->post('idUsuario');
-        $senha_antiga = md5($this->input->post('senha_antiga'));
-        $senha_nova = md5($this->input->post('senha_nova'));
+        $this->load->model('usuario_model','usuario');
 
-        $this->db->select('senha');
-        $this->db->where('idUsuario', $id);
-        $data['senha'] = $this->db - get('usuario')->result();
-        $dados['senha'] = $senha_nova;
-
-        if ($data['senha'][0]->senha == $senha_antiga) {
-            $this->db->where('idUsuario', $id);
-            $this->db->update('usuario', $dados);
-            redirect('usuario/atualizar/' . $id . '/1');
+        if ($this->usuario->salvar_senha()) {
+           redirect('usuario/atualizar/' . $id . '/1');
         } else {
 
             redirect('usuario/atualizar/' . $id . '/2');
         }
     }
 
+    
+    
 }

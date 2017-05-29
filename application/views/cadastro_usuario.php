@@ -35,7 +35,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <option value="2"> Usuário </option>
 
                     </select>
+                   
+                    
                 </div>
+                
+                
+                
             </div>
             <div class="row">
 
