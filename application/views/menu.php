@@ -13,7 +13,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="<?= base_url()?>dashboard">Dashboard</a></li>
-            <li><a href="#">Configurações</a></li>
+            
             <li><a href="<?= base_url()?>usuario">Usuário</a></li>
             <li><a href="<?= base_url()?>dashboard/logout">Logout</a></li>
           </ul>
@@ -31,9 +31,8 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Tela inicial <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
+            <li><a href="<?= base_url()?>rh">RH</a></li>
+            
           </ul>
         </div>
       </div>

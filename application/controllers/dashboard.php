@@ -40,6 +40,7 @@ class dashboard extends CI_Controller {
     }
     
     public function login(){
+        $this->load->view('listar_dashboard');
         $this->load->view('header');
         $this->load->view('login');        
         $this->load->view('footer');
