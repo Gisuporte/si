@@ -62,6 +62,7 @@ class usuario extends CI_Controller {
     public function cadastro() {
         $this->verificar_sessao();
         $dados['cargo'] = $this->db->get('cargos')->result();
+        $dados['centro_custos'] = $this->db->get('centro_custo')->result();
         $this->load->view('header');
         $this->load->view('menu');
         $this->load->view('cadastro_usuario', $dados);
@@ -99,6 +100,7 @@ class usuario extends CI_Controller {
     public function atualizar($id = null, $indice = null) {
         $this->verificar_sessao();
         $data['cargo'] = $this->db->get('cargos')->result();
+        $data['centro_custos'] = $this->db->get('centro_custo')->result();
         
         $this->db->where('idUsuario', $id);
         $data['usuario'] = $this->db->get('usuario')->result();
@@ -115,11 +117,11 @@ class usuario extends CI_Controller {
         $this->load->view('footer');
     }
 
-    public function salvar_atualizacao() {
+    public function salvar() {
         $this->verificar_sessao();
 
          $this->load->model('Usuario_model','usuario');
-        if ($this->usuario->salvar_atualizacao()) {
+        if ($this->usuario->salvar()) {
 
             redirect('usuario/5');
         } else {
@@ -141,6 +143,64 @@ class usuario extends CI_Controller {
         }
     }
 
+    public function pesquisar() {
+        $this->verificar_sessao();
+        $this->load->model('usuario_model','usuario');
+        $dados['usuarios'] = $this->usuario->get_usuarios_like();
+
+        $this->load->view('header');
+        $this->load->view('menu');
+
+      
+        $this->load->view('listar_usuario', $dados);
+        $this->load->view('footer');
+    }
+    
+    public function pag($value=null){
+        
+        if($value==null){
+            $value = 1;
+        }
+        $reg_p_pag = 4;
+        if($value <= $reg_p_pag){
+            
+            $data['btnA'] = 'disabled';
+        }else {
+            $data['btnA'] = '';
+        }
+       
+         $this->load->model('usuario_model','usuario');
+        $u = $this->usuario->get_qtd_usuarios();
+        
+        if (($u[0]->total - $value)< $reg_p_pag){
+            $data['btnP'] = 'disabled';
+        }else {
+            $data['btnP'] = '';
+        }
+        
+        $this->load->model('usuario_model','usuario');
+        $data['usuarios'] = $this->usuario->get_usuarios_pag($value, $reg_p_pag);
+        
+        $data['value'] = $value;
+        $data['$reg_p_pag'] = $reg_p_pag;
+        $data['$qtd_reg'] = $u[0]->total;
+        
+        $v_inteiro = (int)$u[0]->total/$reg_p_pag;
+        $v_resto = $u[0]->total%$reg_p_pag;
+        
+        if($v_resto>0){
+            $v_inteiro += 1;
+        }
+        
+        $data['qtd_botoes'] = $v_inteiro;
+
+        $this->load->view('header');
+        $this->load->view('menu');
+
+        $this->load->view('listar_usuario', $data);
+        $this->load->view('footer');
+    
+    }
     
     
 }

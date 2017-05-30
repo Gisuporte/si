@@ -12,6 +12,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         <a class="btn btn-primary btn-block" href="<?= base_url() ?>usuario/cadastro">Novo Usuário</a>
     </div>
+    <div class="col-md-12" style="padding-bottom: 10px">
+    <form action="<?= base_url() ?>usuario/pesquisar" method="post">
+        <div class="row">
+        <div class="col-md-10">
+            
+            <input type="text" class="form-control" name="pesquisar" placeholder="Pesquisar por.. " required>
+            
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-success btn-block">Pesquisar</button>
+        </div>   
+        </div>
+    </form>
+        </div>
     
     <div class="col-md-12">
         
@@ -20,11 +34,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 
                 <th>ID</th>
                 <th>Nome</th>
-                <th>CPF</th>
-                <th>E-mail</th>
-                <th>Status</th>
-                <th>Nivel</th>
-                <th>Cargo</th>
+                <th>Treinamento Realizado</th>
+                <th>CDI Entregue</th>
+                <th>CDI Assinado</th>                
+                 <th>Status</th>
                  <th></th>
                  <th></th>
             </tr>
@@ -32,18 +45,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <tr>
                 <td><?= $usu->idUsuario; ?> </td>
                 <td><?= $usu->nome; ?> </td>
-                <td><?= $usu->cpf; ?> </td>
-                <td><?= $usu->email; ?> </td>
+                <td><?= $usu->treina_r==1?'Sim':'Não';?></td>
+                <td><?= $usu->cdi_E==1?'Sim':'Não'; ?> </td>
+                <td><?= $usu->cdi_A==1?'Sim':'Não'; ?> </td>
                 <td><?= $usu->status==1?'Ativo':'Inativo'; ?> </td>
-                <td><?= $usu->nivel==1?'Administrador':'Usuário'; ?> </td>
-                <td><?= $usu->desc_cargo; ?> </td>
-                <td><a href="<?= base_url('usuario/atualizar/'.$usu->idUsuario)?>" class="btn btn-primary btn-group">Atualizar</a></td>
-                <td><a href="<?= base_url('usuario/excluir/'.$usu->idUsuario)?>" class="btn btn-danger btn-group" onclick="return confirm('Deseja realmente excluir o usuário?');">Excuir</a></td>
+                <td><a href="<?= base_url('usuario/atualizar/'.$usu->idUsuario)?>" class="btn btn-sm btn-primary btn-group">Atualizar</a></td>
+                <td><a href="<?= base_url('usuario/excluir/'.$usu->idUsuario)?>" class="btn btn-sm btn-danger btn-group" onclick="return confirm('Deseja realmente excluir o usuário?');">Excuir</a></td>
                 
             </tr>
             <?php }?>
             
         </table>
+        
+        
+        
+       
         
     </div>
     

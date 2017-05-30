@@ -9,27 +9,80 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
 
     <div class="col-md-12">
-        <form action="<?= base_url(); ?>usuario/salvar_atualizacao" method="post">
-            <inptut type="hidden" id="idUsuario" name="idUsuario" value="<?= $usuario[0]->idUsuario;?>" /> 
-                <div class="form-group">
+        <form action="<?= base_url() ?>usuario/salvar" method="post">
+            <input type="hidden" id="idUsuario" name="idUsuario" value="<?= $usuario[0]->idUsuario;?>">
+             <div class="form-group">
                 <label for="nome">Nome:</label>
-                    <input class="form-control" id="nome" name="nome" placeholder="Informe o nome..." value="<?= $usuario[0]->nome; ?>" required="" type="text"/>
-                </div>
-</div>
+                <input class="form-control col-md-7" id="nome" name="nome" placeholder="Informe o nome..." value="<?= $usuario[0]->nome;?>" required="" type="text">
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input class="form-control" id="email" name="email" value="<?= $usuario[0]->email;?>" placeholder="Informe o nome..." required="" type="email">
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="ccu_idCcu">Centro de Custo:</label>
+                        <select id="ccu_idCcu" class="form-control"  name="ccu_idCcu" required>
+                        <option value="0"> --- </option>
+                        <?php
+                            foreach ($centro_custos as $centro_custo) {
+                                if ($centro_custo->idCcu ==$usuario[0]->ccu_idCcu) {
+                                    ?>
+                                    <option value="<?= $centro_custo->idCcu ?>" selected><?= $centro_custo->desc_Ccu; ?></option>
+                                <?php } else { ?>
+                                    <option value="<?= $centro_custo->idCcu ?>"> <?= $centro_custo->desc_Ccu; ?> </option>
 
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="cpf">CPF:</label>
-                            <input class="form-control" id="cpf" name="cpf" placeholder="Informe o cpf..."value="<?= $usuario[0]->cpf; ?>" required="" type="text"/>
-                        </div>
+                                <?php }
+                            }
+                            ?>
+                    </select>
                     </div>
-                    <div class="col-md-7">
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input class="form-control" id="email" name="email" placeholder="Informe o endereço email..." value="<?= $usuario[0]->email; ?>" required="" type="email"/>
-                        </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="treina_r">Treinamento Realizado:</label>
+                        <select class="form-control" id="treina_r" name="treina_r" required="">
+                        <option value="0"> --- </option>
+                            <option value="1" <?= $usuario[0]->treina_r == 1 ? ' selected' : ''; ?>>Sim </option>
+                            <option value="2" <?= $usuario[0]->treina_r == 2 ? ' selected' : ''; ?>>Não </option>
+
+
+                    </select>
                     </div>
+                </div>
+                <div class="col-md-2">
+                    <label for="cdi_E">CDI Entregue: </label>
+                    <select class="form-control" id="cdi_E" name="cdi_E" required="">
+                         <option value="1" <?= $usuario[0]->cdi_E == 1 ? ' selected' : ''; ?>>Sim </option>
+                            <option value="2" <?= $usuario[0]->cdi_E == 2 ? ' selected' : ''; ?>>Não </option>
+
+                    </select>
+                   
+                    
+                </div>
+                <div class="col-md-2">
+                    <label for="cdi_A">CDI Assinado: </label>
+                    <select class="form-control" id="cdi_A" name="cdi_A" required="">
+                          <option value="1" <?= $usuario[0]->cdi_A == 1 ? ' selected' : ''; ?>>Sim </option>
+                            <option value="2" <?= $usuario[0]->cdi_A == 2 ? ' selected' : ''; ?>>Não </option>
+
+                    </select>
+                   
+                    
+                </div>
+              
+                
+                
+            </div>
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="senha">Senha: </label>
+                        <input class="form-control" id="senha" name="senha" value="<?= $usuario[0]->senha;?>" placeholder="Informe a senha..." required="" type="password">
+                    </div>
+                </div>
                     <div class="col-md-2">
                         <label for="nivel">Nível: </label>
                         <select class="form-control" id="nivel" name="nivel" required=""  type="text"/>
@@ -42,12 +95,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
                 <div class="row">
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="senha">Senha: </label>
-                            <input type="button" class="btn btn-default btn-block" value="Atualizar Senha" data-toggle="modal" data-target="#myModal" />
-                        </div>
-                    </div>
                     <div class="col-md-2">
                         <label for="status">Status: </label>
                         <select class="form-control" id="status" name="status" required type="text"/>
@@ -166,4 +213,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
 
 
-</script>
+</script>*/
